@@ -3,65 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Javascript homework
-    </title>
+    <title>Javascript homework</title>
     <link rel="stylesheet" href="./css/main.css" />
-    <link href="
-    https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css
-    " rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="./css/reset.css" />
   </head>
   <body>
-    <input type="text" id="datetime-picker" />
-    <button class="start-button" type="button" data-start disabled>Start</button>
-  
-    <div class="timer">
-      <div class="field">
-        <span class="value" data-days>00</span>
-        <span class="label">Days</span>
-      </div>
-      <div class="field">
-        <span class="value" data-hours>00</span>
-        <span class="label">Hours</span>
-      </div>
-      <div class="field">
-        <span class="value" data-minutes>00</span>
-        <span class="label">Minutes</span>
-      </div>
-      <div class="field">
-        <span class="value" data-seconds>00</span>
-        <span class="label">Seconds</span>
-      </div>
-    </div>
-    <form class="form">
-      <label>
-        Delay (ms)
-        <input type="number" name="delay" required />
-      </label>
-    
-      <fieldset class="form-field-set">
-        <legend>State</legend>
-        <label>
-          <input  type="radio" name="state" value="fulfilled" required />
-          Fulfilled
-        </label>
-        <label>
-          <input type="radio" name="state" value="rejected" required />
-          Rejected
-        </label>
-      </fieldset>
-    
-      <button type="submit">Create notification</button>
-    </form>
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="
-  https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js
-  "></script>
-    <script type="module" src="./js/main.js"></script>
+    <ul class="wrapper">
+      <li>
+        <button class="main-button" type="button">
+          <a href="./1-timer.html">timer</a>
+        </button>
+      </li>
+      <li>
+        <button class="main-button" type="button">
+          <a href="./2-snackbar.html">snackbar</a>
+        </button>
+      </li>
+    </ul>
   </body>
 </html>
-
