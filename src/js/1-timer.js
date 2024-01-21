@@ -5,7 +5,6 @@ const hoursElement = document.querySelector('[data-hours]');
 const minutesElement = document.querySelector('[data-minutes]');
 const secondsElement = document.querySelector('[data-seconds]');
 
-
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
@@ -20,8 +19,18 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+function updateTimerDisplay(days, hours, minutes, seconds) {
+  daysElement.textContent = addLeadingZero(days);
+  hoursElement.textContent = addLeadingZero(hours);
+  minutesElement.textContent = addLeadingZero(minutes);
+  secondsElement.textContent = addLeadingZero(seconds);
+}
+
+function addLeadingZero(value) {
+  return value < 10 ? `0${value}` : value;
+}
+
 if (typeof flatpickr !== 'undefined') {
- 
   const options = {
     enableTime: true,
     time_24hr: true,
@@ -32,11 +41,11 @@ if (typeof flatpickr !== 'undefined') {
       const currentDate = new Date();
 
       if (selectedDate <= currentDate) {
-     
-               iziToast.show({
-            title: 'Sorry!',
-            message: 'Please choose a date in the future'
+        iziToast.show({
+          title: 'Sorry!',
+          message: 'Please choose a date in the future',
         });
+        startButton.disabled = true; // Зробив зміну тут, якщо вибрана минула дата
       } else {
         startButton.disabled = false;
       }
@@ -55,6 +64,7 @@ function updateTimer(endDate) {
   if (timeDifference <= 0) {
     clearInterval(countdownInterval);
     updateTimerDisplay(0, 0, 0, 0);
+    startButton.disabled = true;
     return;
   }
 
@@ -62,23 +72,21 @@ function updateTimer(endDate) {
   updateTimerDisplay(days, hours, minutes, seconds);
 }
 
-function updateTimerDisplay(days, hours, minutes, seconds) {
-  daysElement.textContent = addLeadingZero(days);
-  hoursElement.textContent = addLeadingZero(hours);
-  minutesElement.textContent = addLeadingZero(minutes);
-  secondsElement.textContent = addLeadingZero(seconds);
-}
-
-
-function addLeadingZero(value) {
-  return value < 10 ? `0${value}` : value;
-}
-
-
 startButton.addEventListener('click', function () {
   const selectedDate = flatpickr.parseDate(dateTimePicker.value, 'Y-m-d H:i:S');
-  if (selectedDate) {
+  if (selectedDate && selectedDate > new Date()) {
+    clearInterval(countdownInterval);
     countdownInterval = setInterval(() => updateTimer(selectedDate), 1000);
-    startButton.disabled = true; 
+    startButton.disabled = true;
+  } else {
+    iziToast.error({
+      title: 'Error',
+      message: 'Please choose a valid date in the future',
+    });
+    startButton.disabled = true;
   }
+});
+
+dateTimePicker.addEventListener('change', function () {
+  startButton.disabled = false;
 });
