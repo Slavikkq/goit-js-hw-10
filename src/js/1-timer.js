@@ -45,7 +45,7 @@ if (typeof flatpickr !== 'undefined') {
           title: 'Sorry!',
           message: 'Please choose a date in the future',
         });
-        startButton.disabled = true; // Зробив зміну тут, якщо вибрана минула дата
+        startButton.disabled = true;
       } else {
         startButton.disabled = false;
       }
@@ -64,7 +64,7 @@ function updateTimer(endDate) {
   if (timeDifference <= 0) {
     clearInterval(countdownInterval);
     updateTimerDisplay(0, 0, 0, 0);
-    startButton.disabled = true;
+    dateTimePicker.disabled = true;
     return;
   }
 
@@ -78,6 +78,7 @@ startButton.addEventListener('click', function () {
     clearInterval(countdownInterval);
     countdownInterval = setInterval(() => updateTimer(selectedDate), 1000);
     startButton.disabled = true;
+    dateTimePicker.disabled = true;
   } else {
     iziToast.error({
       title: 'Error',
